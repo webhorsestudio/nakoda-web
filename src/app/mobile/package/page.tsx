@@ -114,8 +114,8 @@ function PackageSelectionContent() {
     );
   };
   const handleContinue = () => {
-    // Navigate to Review Summary page
-    router.push('/mobile/review');
+    // Navigate to Booking page
+    router.push('/mobile/booking');
   };
   const handleServiceDetails = (packageId: string) => {
     console.log('Service details clicked for package:', packageId);
@@ -175,29 +175,27 @@ function PackageSelectionContent() {
                     <div className="flex items-center space-x-2 mt-2">
                       <span className="text-sm text-gray-400 line-through">{pkg.originalPrice}</span>
                       <span className="text-xs bg-green-100 text-green-600 px-1.5 py-0.5 rounded">{pkg.discount}</span>
-                    </div>
-                    <div className="flex items-center justify-between mt-2">
                       <span className="text-lg font-bold text-purple-600">{pkg.discountedPrice}</span>
-                      <div className="flex space-x-2">
-                        <button
-                          onClick={() => handleServiceDetails(pkg.id)}
-                          className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
-                          suppressHydrationWarning
-                        >
-                          Service Details
-                        </button>
-                        <button
-                          onClick={() => handleAddPackage(pkg.id)}
-                          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                            selectedPackages.includes(pkg.id)
-                              ? 'bg-red-100 text-red-600 hover:bg-red-200'
-                              : 'bg-purple-600 text-white hover:bg-purple-700'
-                          }`}
-                          suppressHydrationWarning
-                        >
-                          {selectedPackages.includes(pkg.id) ? 'REMOVE' : 'ADD'}
-                        </button>
-                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 mt-2">
+                      <button
+                        onClick={() => handleServiceDetails(pkg.id)}
+                        className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
+                        suppressHydrationWarning
+                      >
+                        Service Details
+                      </button>
+                      <button
+                        onClick={() => handleAddPackage(pkg.id)}
+                        className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                          selectedPackages.includes(pkg.id)
+                            ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                            : 'bg-purple-600 text-white hover:bg-purple-700'
+                        }`}
+                        suppressHydrationWarning
+                      >
+                        {selectedPackages.includes(pkg.id) ? 'REMOVE' : 'ADD'}
+                      </button>
                     </div>
                   </div>
                 </div>

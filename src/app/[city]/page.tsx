@@ -1,15 +1,64 @@
-"use client";
-
+import { Metadata } from "next";
 import SectionWrapper from "@/components/SectionWrapper";
 import GlassCard from "@/components/GlassCard";
 import HeroSection from "@/components/Hero/HeroSection";
+import ServiceMarketplace from "@/components/ServiceMarketplace";
 import { ArrowUpRight, Smile, Search, Users, Truck, Briefcase, Home, Wrench, Star } from "lucide-react";
+import LocationService, { cityMapping } from "@/lib/locationService";
 
-export default function HomePage() {
+interface CityPageProps {
+  params: Promise<{
+    city: string;
+  }>;
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
+  const { city } = await params;
+  const cityName = cityMapping[city as keyof typeof cityMapping] || 'Mumbai';
+  
+  return {
+    title: `Nakoda Urban Services in ${cityName} - Professional Services`,
+    description: `Find professional services in ${cityName}. We deliver quality, innovation, and results for all your urban service needs.`,
+    keywords: `${cityName}, urban services, professional services, home services, ${cityName.toLowerCase()} services`,
+    openGraph: {
+      title: `Nakoda Urban Services in ${cityName}`,
+      description: `Professional services in ${cityName} - Quality, innovation, and results.`,
+      url: `https://nakoda-ui.com/${city}`,
+      siteName: 'Nakoda Urban Services',
+      locale: 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Nakoda Urban Services in ${cityName}`,
+      description: `Professional services in ${cityName} - Quality, innovation, and results.`,
+    },
+  };
+}
+
+// Generate static params for all cities
+export async function generateStaticParams() {
+  return Object.keys(cityMapping).map((city) => ({
+    city: city,
+  }));
+}
+
+export default async function CityPage({ params }: CityPageProps) {
+  const { city } = await params;
+  const cityName = cityMapping[city as keyof typeof cityMapping] || 'Mumbai';
+  const locationService = LocationService.getInstance();
+  const cityLocations = locationService.getAvailableLocations().filter(location => 
+    location.includes(cityName)
+  );
+
   return (
     <>
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Service Marketplace */}
+      <ServiceMarketplace />
 
       {/* Service Cards Grid - Responsive Layout */}
       <SectionWrapper className="py-16">
@@ -181,4 +230,4 @@ export default function HomePage() {
       </SectionWrapper>
     </>
   );
-}
+} 

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import LayoutWrapper from "../components/LayoutWrapper";
+import "../globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,24 +13,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nakoda - Professional Services for Modern Businesses",
-  description: "Professional services for modern businesses. We deliver quality, innovation, and results.",
+  title: "Mobile App UI Demo - Nakoda",
+  description: "Mobile app UI demonstration for Nakoda services",
 };
 
-export default function RootLayout({
+export default function MobileDemoLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LayoutWrapper>
-          {children}
-        </LayoutWrapper>
+        {/* Mobile-only layout - completely isolated from web layout */}
+        {children}
       </body>
     </html>
   );
-}
+} 

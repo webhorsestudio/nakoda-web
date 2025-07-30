@@ -7,15 +7,21 @@ import SpecialOffers from './SpecialOffers';
 import ServicesGrid from './ServicesGrid';
 import MostPopularServices from './MostPopularServices';
 import BottomNavigation from './BottomNavigation';
+import SplashScreen from './SplashScreen';
 
 export default function MobileApp() {
   const [activeTab, setActiveTab] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
@@ -34,6 +40,11 @@ export default function MobileApp() {
     setActiveTab(tab);
     console.log('Tab changed to:', tab);
   };
+
+  // Show splash screen while loading
+  if (isLoading) {
+    return <SplashScreen onLoadingComplete={handleLoadingComplete} />;
+  }
 
   // Don't render until mounted to prevent hydration issues
   if (!mounted) {

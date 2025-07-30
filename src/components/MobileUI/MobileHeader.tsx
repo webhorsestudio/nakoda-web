@@ -11,7 +11,7 @@ interface MobileHeaderProps {
 
 export default function MobileHeader({ 
   userName = "Abhishek Krishna", 
-  profileImage = "/api/placeholder/40/40",
+  profileImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face",
   location = "Mumbai, Maharashtra"
 }: MobileHeaderProps) {
   return (
